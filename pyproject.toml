@@ -1,0 +1,16 @@
+[tool.uv.workspace]
+members = ["backend"]
+
+[project]
+name = "Practice"
+version = "0.1.0"
+description = "my practice project"
+requires-python = ">=3.12.0"
+dependencies = [
+    "pre-commit>=4.6.1"
+    
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
