@@ -1,14 +1,20 @@
 from typing import Annotated
 from uuid import UUID
-from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field
+from datetime import datetime, timezone
+from pydantic import EmailStr, Field
+
+from ...common.schemas import TimestampSchema, PersistentDeletion
 
 
-class CreateUserRequest(BaseModel):
+class CreateUserRequest(TimestampSchema, PersistentDeletion):
     first_name: Annotated[str, Field(min_length=2, max_length= 30)]
     last_name: Annotated[str, Field(min_length=2, max_length= 30)]
     username: Annotated[str, Field(min_length = 2, max_length=30)]
     email: Annotated[EmailStr, Field(min_length = 2, max_length=30)]
+    created_at: Annotated[datetime, Field(default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None))]
+    updated_at: Annotated[datetime | None, Field(default=None)]
+    deleted_at: Annotated[datetime | None, Field(default=None)]
+    is_deleted: Annotated[bool, Field(default=False)]
     password: Annotated[
         str,
         Field(
@@ -24,7 +30,7 @@ class CreateUserRequest(BaseModel):
     ]
 
 #TODO: This is wrong, this should be a response from bounced back from later layers to the HTTP, solve this later
-class CreateUserResponse(BaseModel):
+class CreateUserResponse(TimestampSchema):
     id: Annotated[
         UUID, 
         Field(

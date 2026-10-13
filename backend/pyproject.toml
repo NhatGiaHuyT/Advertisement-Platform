@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "backend"
 version = "0.1.0"
-description = "practice backend"
+description = "project's backend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -15,9 +15,15 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=9.1.1",
+    "pytest",
     "pytest-asyncio>=1.4.0",
-    "pydantic[email]"
+    "pydantic[email]",
+    "python-dotenv",
+    "psycopg",
+    "psycopg_pool",
+    "regex",
+    "argon2-cffi",
+    "pypika"
 ]
 
 [tool.setuptools.packages.find]
@@ -101,7 +107,8 @@ ignore_missing_imports = true
 line-length = 128
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "TID"]
+select = ["E", "F", "I", "UP", "TID", "W", "B"]
+ignore = []
 extend-select = ["UP006", "UP007", "UP035", "UP039", "PLC0415"]
 
 [tool.ruff.lint.isort]

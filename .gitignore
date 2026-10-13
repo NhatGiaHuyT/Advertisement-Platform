@@ -145,3 +145,10 @@ src/.env
 
 # Don't ignore files inside of script folder:
 !scripts/*
+
+# Ignore uvicorn lock file
+.uv.lock
+
+.kilo
+
+.pytest_cache/
