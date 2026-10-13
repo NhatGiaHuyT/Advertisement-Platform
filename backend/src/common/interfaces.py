@@ -1,5 +1,6 @@
 from typing import Protocol
 
+
 class IHasherEncoder(Protocol):
     async def hash(self, value: str) -> str:
         ...

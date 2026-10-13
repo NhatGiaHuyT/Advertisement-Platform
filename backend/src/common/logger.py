@@ -1,6 +1,7 @@
 import logging
 import sys
 
+
 def setup_logging():
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)

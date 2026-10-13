@@ -1,4 +1,5 @@
-from .interfaces import IUnitOfWork, IQueryBuilder
+from infrastructure.database.interfaces import IQueryBuilder, IUnitOfWork
+
 
 class PostgresUnitOfWork(IUnitOfWork):
     def __init__(self, query: IQueryBuilder):
@@ -6,7 +7,7 @@ class PostgresUnitOfWork(IUnitOfWork):
         self._pending_new = []
         self._pending_dirty = []
         self._pending_deleted = []
-    
+
     def register_new(self, entity) -> None:
         self._pending_new.append(entity)
 
@@ -30,7 +31,7 @@ class PostgresUnitOfWork(IUnitOfWork):
         for entity in self._pending_new:
             query = self._query.insert(entity).build()
             return query
-        
+
     async def _flush_dirty(self) -> None:
         for entity in self._pending_dirty:
             query, params = self._query.update(entity).where(id=entity.id).build()

@@ -17,13 +17,14 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-asyncio>=1.4.0",
+    "pydantic",
     "pydantic[email]",
     "python-dotenv",
     "psycopg",
     "psycopg_pool",
     "regex",
     "argon2-cffi",
-    "pypika"
+    "pypika",
 ]
 
 [tool.setuptools.packages.find]

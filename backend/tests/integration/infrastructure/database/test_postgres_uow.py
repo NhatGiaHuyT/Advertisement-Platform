@@ -1,13 +1,10 @@
-import sys
 import asyncio
-
+import sys
 import unittest
 
-from infrastructure.database.unit_of_work import PostgresUnitOfWork
-from infrastructure.database.connection_pool import PostgresConnectionPool
-from infrastructure.database.query_builder import QueryBuilder
 from common.configs import DatabaseConfig
-
+from infrastructure.database.connection_pool import PostgresConnectionPool
+from infrastructure.database.unit_of_work import PostgresUnitOfWork
 
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

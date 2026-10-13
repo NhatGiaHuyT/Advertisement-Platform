@@ -1,15 +1,13 @@
-from typing import Any
-
 from psycopg import AsyncConnection
 from psycopg_pool import AsyncConnectionPool
 
-from .interfaces import (
+from infrastructure.database.cursor import PostgresCursor
+from infrastructure.database.interfaces import (
     IConnection,
     ICursor,
     ITransactionManager,
 )
-from .cursor import PostgresCursor
-from .transaction_manager import PostgresTransactionManager
+from infrastructure.database.transaction_manager import PostgresTransactionManager
 
 
 class PostgresConnection(IConnection):

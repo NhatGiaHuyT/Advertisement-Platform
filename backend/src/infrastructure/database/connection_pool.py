@@ -1,10 +1,9 @@
-from psycopg_pool import AsyncConnectionPool
 from psycopg.errors import OperationalError
-from psycopg_pool import PoolTimeout
+from psycopg_pool import AsyncConnectionPool, PoolTimeout
 
 from common.configs import DatabaseConfig
-from .interfaces import IConnectionPool, IConnection
-from .connection import PostgresConnection
+from infrastructure.database.connection import PostgresConnection
+from infrastructure.database.interfaces import IConnection, IConnectionPool
 
 
 class PostgresConnectionPool(IConnectionPool):
@@ -17,11 +16,7 @@ class PostgresConnectionPool(IConnectionPool):
         self._config = config
 
         conninfo = (
-            f"host={config.host} "
-            f"port={config.port} "
-            f"dbname={config.database} "
-            f"user={config.user} "
-            f"password={config.password}"
+            f"host={config.host} port={config.port} dbname={config.database} user={config.user} password={config.password}"
         )
 
         self._pool = AsyncConnectionPool(
@@ -31,7 +26,7 @@ class PostgresConnectionPool(IConnectionPool):
             kwargs={
                 "autocommit": False,
             },
-            open=False
+            open=False,
         )
 
     async def open(self) -> None:
@@ -50,9 +45,7 @@ class PostgresConnectionPool(IConnectionPool):
             )
 
         except (OperationalError, PoolTimeout) as exc:
-            raise RuntimeError(
-                "Unable to acquire a database connection."
-            ) from exc
+            raise RuntimeError("Unable to acquire a database connection.") from exc
 
     async def release(self, connection: IConnection) -> None:
         await connection.close()

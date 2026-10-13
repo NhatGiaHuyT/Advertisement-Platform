@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 
 @dataclass(frozen=True, slots=True)
 class CreatedAt:
@@ -14,4 +15,4 @@ class CreatedAt:
                 "CreatedAt must be a timezone-aware datetime."
             )
 
-        object.__setattr__(self, "value", self.value.astimezone(timezone.utc))
+        object.__setattr__(self, "value", self.value.astimezone(UTC))

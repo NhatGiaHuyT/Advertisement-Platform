@@ -2,7 +2,7 @@ from types import TracebackType
 
 from psycopg import AsyncConnection
 
-from .interfaces import ITransactionManager
+from infrastructure.database.interfaces import ITransactionManager
 
 
 class PostgresTransactionManager(ITransactionManager):
@@ -24,4 +24,3 @@ class PostgresTransactionManager(ITransactionManager):
             exc_val,
             exc_tb,
         )
-

@@ -1,7 +1,8 @@
 # interfaces.py
 
-from typing import Dict, Any, Protocol, runtime_checkable
 from types import TracebackType
+from typing import Any, Protocol, runtime_checkable
+
 
 class ICursor(Protocol):
     async def execute(
@@ -57,8 +58,8 @@ class IConnectionPool(Protocol):
 
 class IUnitOfWork(Protocol):
     """
-    The job of a unit of work bound to a session is to track all business operations and 
-    data changes in-memory during a single interaction and 
+    The job of a unit of work bound to a session is to track all business operations and
+    data changes in-memory during a single interaction and
     commit them to the database as one single atomic transaction
     """
 
@@ -74,7 +75,7 @@ class IUnitOfWork(Protocol):
     async def commit(self) -> None:
         ...
 
-    
+
 
 @runtime_checkable
 class IQueryBuilder(Protocol):
@@ -82,19 +83,19 @@ class IQueryBuilder(Protocol):
         ...
     def create_table(self) -> "IQueryBuilder":
         ...
-    
+
     def drop_table(self) -> "IQueryBuilder":
         ...
-    
+
     def insert(self, *cols) -> "IQueryBuilder":
         ...
 
     def update(self) -> "IQueryBuilder":
         ...
-    
+
     def from_(self) -> "IQueryBuilder":
         ...
-    
+
     def select(self) -> "IQueryBuilder":
         ...
 
@@ -106,18 +107,18 @@ class IQueryBuilder(Protocol):
 
     def groupby(self, *fields) -> "IQueryBuilder":
         ...
-    
+
     def having(self, criterion) -> "IQueryBuilder":
         ...
-    
+
     def orderby(self, *fields, **kwargs) -> "IQueryBuilder":
         ...
 
 class ISession:
     async def __aenter__(self) -> "ISession":
         ...
-    
-    async def __aexit__( 
+
+    async def __aexit__(
         self,
         exc_type: type[BaseException] | None,
         exc_val: BaseException | None,
@@ -144,5 +145,5 @@ class IMapperFactory:
     def register(self, table_name: str, columns: dict[str, Any]) -> None:
         ...
 
-    def extract(self, entity: IEntity) -> tuple[str, Dict[str, Any]]:
+    def extract(self, entity: IEntity) -> tuple[str, dict[str, Any]]:
         ...

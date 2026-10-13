@@ -1,9 +1,8 @@
 # TODO: separate the control plane from the data plane, and the api plane from the business logic plane
 
 from fastapi import APIRouter
-from fastapi.requests import Request
 
-from .schemas import CreateUserRequest
+from presentation.users.schemas import CreateUserRequest
 
 user_router = APIRouter()
 

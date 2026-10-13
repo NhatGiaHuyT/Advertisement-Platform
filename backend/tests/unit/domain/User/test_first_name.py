@@ -1,9 +1,11 @@
-import pytest
-from dataclasses import FrozenInstanceError
 import unittest
+from dataclasses import FrozenInstanceError
 from unittest.mock import AsyncMock
 
+import pytest
+
 from domain.User.value_objects.first_name import FirstName
+
 
 class TestFirstNameValueObject(unittest.IsolatedAsyncioTestCase):
     async def test_async_fetch_first_name(self):
@@ -15,7 +17,7 @@ class TestFirstNameValueObject(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result.value, "John")
         mock_fetch.assert_awaited_once()
-    
+
     async def test_first_name_is_normalized(self):
         fake_username = FirstName(value="     John      ")
 
@@ -32,7 +34,9 @@ class TestFirstNameValueObject(unittest.IsolatedAsyncioTestCase):
             FirstName(value="")
 
     async def test_first_name_max_length_raises_error(self):
-        make_first_name = lambda length: f"{'a' * (length)}"
+        def make_first_name(length):
+            return f"{'a' * (length)}"
+
         with pytest.raises(ValueError, match="First name cannot be longer than 50 characters."):
             FirstName(value=make_first_name(51))
 
@@ -42,4 +46,3 @@ class TestFirstNameValueObject(unittest.IsolatedAsyncioTestCase):
         result = await mock_fetch()
         with pytest.raises(FrozenInstanceError, match="cannot assign to field 'value'"):
             result.value = "Jane"
-            

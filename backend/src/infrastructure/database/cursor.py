@@ -1,8 +1,10 @@
 from typing import Any
-from psycopg import AsyncCursor  # Import trực tiếp từ psycopg
+
+from psycopg import AsyncCursor
 from psycopg.rows import dict_row
 
-from .interfaces import ICursor
+from infrastructure.database.interfaces import ICursor
+
 
 class PostgresCursor(ICursor):
     def __init__(self, cursor: AsyncCursor):

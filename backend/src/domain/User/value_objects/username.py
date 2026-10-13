@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 
 _USERNAME_PATTERN = re.compile(
     r"^[a-zA-Z0-9](?!.*[._]{2})[a-zA-Z0-9._]*[a-zA-Z0-9]$"
@@ -20,5 +20,5 @@ class Username:
 
         if not _USERNAME_PATTERN.fullmatch(normalized):
             raise ValueError("Invalid username format.")
-        
+
         object.__setattr__(self, "value", normalized)

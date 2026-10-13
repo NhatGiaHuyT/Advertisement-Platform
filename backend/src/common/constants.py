@@ -1,6 +1,5 @@
 from pathlib import Path
-import os
-from dotenv import load_dotenv
+
 
 def get_project_root() -> Path:
     current_path = Path(__file__).resolve()

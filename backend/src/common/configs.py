@@ -1,6 +1,8 @@
 import os
 from dataclasses import dataclass
+
 from dotenv import load_dotenv
+
 
 @dataclass(frozen=True)
 class DatabaseConfig:
@@ -15,7 +17,7 @@ class DatabaseConfig:
         load_dotenv()
         if not os.getenv("DB_NAME") or not os.getenv("DB_USER"):
             raise ValueError("Missing critical database environment variables.")
-            
+
         return cls(
             host=os.getenv("DB_HOST", "localhost"),
             database=os.getenv("DB_NAME"),

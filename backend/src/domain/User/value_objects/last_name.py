@@ -1,5 +1,6 @@
-from dataclasses import dataclass
 import unicodedata
+from dataclasses import dataclass
+
 import regex
 
 _LAST_NAME_PATTERN = regex.compile(r"^[\p{L}\s'-]+$")
@@ -11,7 +12,7 @@ class LastName:
     def __post_init__(self):
         value = self.value.strip()
         value = unicodedata.normalize('NFC', value)
-        
+
         if not self.value:
             raise ValueError("Last name cannot be empty.")
 
@@ -22,4 +23,3 @@ class LastName:
             raise ValueError("Last name can only contain letters, spaces, hyphens, or apostrophes.")
 
         object.__setattr__(self, "value", value)
-        

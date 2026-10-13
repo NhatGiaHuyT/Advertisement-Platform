@@ -1,11 +1,10 @@
-from typing import Protocol
-from uuid import UUID
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Protocol
 
-from ...infrastructure.repositories.user_repository import IUserRepository
-from ...infrastructure.security.password_hasher import IPasswordHasher
-from ...domain.User.model import User
+from domain.User.model import User
+from infrastructure.repositories.user_repository import IUserRepository
+from infrastructure.security.password_hasher import IPasswordHasher
 
 
 @dataclass(frozen=True)
@@ -18,6 +17,7 @@ class CreateUserCommand:
     updated_at: datetime | None = None
     password: str
 
+
 @dataclass(frozen=True)
 class CreateUserOutput:
     first_name: str
@@ -25,9 +25,10 @@ class CreateUserOutput:
     username: str
     email: str
 
+
 class ICreateUser(Protocol):
-    async def execute(self, command: CreateUserCommand) -> CreateUserOutput:
-        ...
+    async def execute(self, command: CreateUserCommand) -> CreateUserOutput: ...
+
 
 class CreateUser(ICreateUser):
     def __init__(self, user_repository: IUserRepository, password_hasher: IPasswordHasher):
@@ -52,7 +53,7 @@ class CreateUser(ICreateUser):
             username=username,
             email=email,
             created_at=created_at,
-            hash_password=password_hash
+            hash_password=password_hash,
         )
 
         return user

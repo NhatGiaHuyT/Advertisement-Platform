@@ -1,18 +1,16 @@
-from uuid import UUID
 from typing import Protocol
+from uuid import UUID
 
-from ...domain.User.model import User
+from domain.User.model import User
 
 
 class IUserRepository(Protocol):
-    async def create(self, user: User) -> None:
-        ...
+    async def create(self, user: User) -> None: ...
 
-    async def get_by_id(self, user_id: UUID) -> User | None:
-        ...
+    async def get_by_id(self, user_id: UUID) -> User | None: ...
 
-    async def get_by_email(self, email: str) -> bool: 
-        ...
+    async def get_by_email(self, email: str) -> bool: ...
+
 
 class PostgresUserRepository(IUserRepository):
-    
+    pass

@@ -1,18 +1,16 @@
 import unittest
 
-from .unit.domain.User.test_model import TestUserModel
+from tests.unit.domain.User.test_created_at import TestCreatedAtValueObject
+from tests.unit.domain.User.test_email import TestEmailValueObject
+from tests.unit.domain.User.test_first_name import TestFirstNameValueObject
+from tests.unit.domain.User.test_hash_password import TestRawPasswordRepresentation, TestRawPasswordValidation
+from tests.unit.domain.User.test_last_name import TestLastNameValueObject
+from tests.unit.domain.User.test_model import TestUserModel
+from tests.unit.domain.User.test_username import TestUsernameValueObject
+from tests.unit.infrastructure.database.test_query_builder import TestQueryBuilder
+from tests.unit.infrastructure.database.test_unit_of_work import TestUnitOfWork
 
-from .unit.domain.User.test_first_name import TestFirstNameValueObject
-from .unit.domain.User.test_last_name import TestLastNameValueObject
-from .unit.domain.User.test_username import TestUsernameValueObject
-from .unit.domain.User.test_email import TestEmailValueObject
-from .unit.domain.User.test_created_at import TestCreatedAtValueObject
-from .unit.domain.User.test_hash_password import TestRawPasswordValidation, TestRawPasswordRepresentation
-
-from .unit.infrastructure.database.test_unit_of_work import TestUnitOfWork
-from .unit.infrastructure.database.test_query_builder import TestQueryBuilder
-
-#from .integration.infrastructure.database.test_postgres_uow import TestPostgresUnitOfWorkIntegration
+# from .integration.infrastructure.database.test_postgres_uow import TestPostgresUnitOfWorkIntegration
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
@@ -32,8 +30,7 @@ if __name__ == "__main__":
     suite.addTests(loader.loadTestsFromTestCase(TestUnitOfWork))
     suite.addTests(loader.loadTestsFromTestCase(TestQueryBuilder))
 
-    #suite.addTests(loader.loadTestsFromTestCase(TestPostgresUnitOfWorkIntegration))
-
+    # suite.addTests(loader.loadTestsFromTestCase(TestPostgresUnitOfWorkIntegration))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

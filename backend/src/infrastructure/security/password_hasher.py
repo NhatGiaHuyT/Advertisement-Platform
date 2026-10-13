@@ -1,10 +1,10 @@
 from typing import Protocol
 
-import argon2
-from domain.User.value_objects.raw_password import RawPassword
-from domain.User.value_objects.hash_password import HashPassword
-
 from argon2 import PasswordHasher
+
+from domain.User.value_objects.hash_password import HashPassword
+from domain.User.value_objects.raw_password import RawPassword
+
 
 class IPasswordHasher(Protocol):
 
@@ -29,7 +29,7 @@ class Argon2PasswordHasher(IPasswordHasher):
     def verify(
         self,
         value: RawPassword,
-        hashed_value: HashPassword,   
+        hashed_value: HashPassword,
     ) -> bool:
         return self._hasher.verify(
             hashed_value.value,

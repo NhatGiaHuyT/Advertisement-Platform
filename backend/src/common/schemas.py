@@ -1,6 +1,8 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any
+
 from pydantic import BaseModel, Field, field_serializer
+
 
 class TimestampSchema(BaseModel):
     created_at: datetime | None = Field(default=None)
@@ -10,9 +12,9 @@ class TimestampSchema(BaseModel):
     def serialize_created_at(self, created_at: datetime | None, _info: Any) -> str | None:
         if created_at is not None:
             return created_at.isoformat()
-        
+
         return None
-        
+
     @field_serializer("updated_at")
     def serialize_updated_at(self, updated_at: datetime | None, _info: Any) -> str | None:
         if updated_at is not None:

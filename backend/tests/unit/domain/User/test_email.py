@@ -1,9 +1,11 @@
-import pytest
-from dataclasses import FrozenInstanceError
 import unittest
+from dataclasses import FrozenInstanceError
 from unittest.mock import AsyncMock
 
+import pytest
+
 from domain.User.value_objects.email import Email
+
 
 class TestEmailValueObject(unittest.IsolatedAsyncioTestCase):
     async def test_async_fetch_email(self):
@@ -15,7 +17,7 @@ class TestEmailValueObject(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result.value, "example@example.com")
         mock_fetch.assert_awaited_once()
-    
+
     async def test_email_is_normalized(self):
         fake_email = Email(value="     Example@exampLe.cOm      ")
 
@@ -28,7 +30,8 @@ class TestEmailValueObject(unittest.IsolatedAsyncioTestCase):
             Email(value="")
 
     async def test_email_max_length_raises_error(self):
-        make_email = lambda length: f"a@{'a' * (length - 6)}.com"
+        def make_email(length):
+            return f"a@{'a' * (length - 6)}.com"
         with pytest.raises(ValueError, match="Email cannot be longer than 254 characters."):
             Email(value=make_email(255))
 
@@ -50,4 +53,3 @@ class TestEmailValueObject(unittest.IsolatedAsyncioTestCase):
         result = await mock_fetch()
         with pytest.raises(FrozenInstanceError, match="cannot assign to field 'value'"):
             result.value = "diff@diff.com"
-            

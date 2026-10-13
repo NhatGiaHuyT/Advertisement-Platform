@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True, slots=True)
 class RawPassword:
     value: str
@@ -22,5 +23,5 @@ class RawPassword:
             raise ValueError(
                 "Password cannot be longer than 64 characters."
             )
-            
+
         object.__setattr__(self, "value", value)
