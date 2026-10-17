@@ -20,11 +20,8 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
 
-      - name: Goto Backend/
-        run: |
-          cd backend
-      
       - name: Sync workspace
+        working-directory: backend
         run: |
           uv sync --extra dev
 
