@@ -5,9 +5,14 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+defaults:
+  run:
+    working-directory: backend
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,16 +24,13 @@ jobs:
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Sync workspace
-        working-directory: backend
-        run: |
-          uv sync --extra dev
+        run: uv sync --extra dev
 
       - name: Pytest
-        run: |
-          uv run --no-sync pytest
+        run: uv run --no-sync pytest
         env:
           ENVIRONMENT: test
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-

@@ -5,29 +5,32 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+defaults:
+  run:
+    working-directory: backend
+
 jobs:
   type-check:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          
+
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Sync workspace
-        working-directory: backend
-        run: |
-          uv sync --extra dev
-      
+        run: uv sync --extra dev
+
       - name: Mypy
-        run: |
-          uv run --no-sync mypy
+        run: uv run --no-sync mypy .
         env:
           ENVIRONMENT: test
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
