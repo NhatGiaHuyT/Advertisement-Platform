@@ -1,22 +1,33 @@
+from types import TracebackType
 from typing import Any
 
 from psycopg import AsyncCursor
-from psycopg.rows import dict_row
+from psycopg.rows import DictRow, dict_row
 
 from infrastructure.database.interfaces import ICursor
 
 
 class PostgresCursor(ICursor):
-    def __init__(self, cursor: AsyncCursor):
+    def __init__(self, cursor: AsyncCursor[DictRow]):
         self._cursor = cursor
         self._cursor.row_factory = dict_row
+
+    async def __aenter__(self) -> "PostgresCursor":
+        return self
+
+    async def __aexit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        await self.close()
 
     async def execute(
         self,
         query: str,
-        params: tuple | dict | None = None,
     ) -> None:
-        await self._cursor.execute(query, params)
+        await self._cursor.execute(query)
 
     async def fetch_many(self, size: int) -> list[dict[str, Any]]:
         return await self._cursor.fetchmany(size)

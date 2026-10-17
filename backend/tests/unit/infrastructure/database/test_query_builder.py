@@ -58,6 +58,12 @@ class TestQueryBuilder(unittest.IsolatedAsyncioTestCase):
 
         assert str(query) == 'UPDATE "fake_user" SET "email"=\'new_email\' WHERE "id"=1'
 
+    async def test_query_builder_delete(self):
+        query = self.builder.delete()
+        assert isinstance(query, IQueryBuilder)
+
+        assert str(query) == f'DELETE FROM "{self.builder._table_name}"'
+
     async def test_query_builder_build(self):
         query = self.builder.insert(1, "email", "created_at").build()
 

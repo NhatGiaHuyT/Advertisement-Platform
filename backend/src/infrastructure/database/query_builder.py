@@ -1,13 +1,15 @@
+from typing import Any
+
 from pypika import Query, Table
 
 from infrastructure.database.interfaces import IQueryBuilder
 
 
 class QueryBuilder(IQueryBuilder):
-    def __init__(self, table_name: str):
+    def __init__(self, table_name: str) -> None:
         self._table_name = table_name
         self._table = Table(table_name)
-        self._query = None
+        self._query: Any
 
     def create_table(self, *cols) -> IQueryBuilder:
         self._query = Query.create_table(self._table_name)
@@ -41,6 +43,7 @@ class QueryBuilder(IQueryBuilder):
 
         return self
 
+    # Where is not meant to be used standalone
     def where(self, criterion) -> IQueryBuilder:
         self._query = self._query.where(criterion)
         return self
@@ -49,6 +52,10 @@ class QueryBuilder(IQueryBuilder):
         self._query = Query.update(self._table).set(row, value)
         if not row or not value:
             raise ValueError("Row and value must be provided for update operation.")
+        return self
+
+    def delete(self) -> IQueryBuilder:
+        self._query = Query.from_(self._table).delete()
         return self
 
     def build(self) -> str:

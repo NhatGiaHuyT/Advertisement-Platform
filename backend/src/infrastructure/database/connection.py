@@ -1,4 +1,5 @@
 from psycopg import AsyncConnection
+from psycopg.rows import dict_row
 from psycopg_pool import AsyncConnectionPool
 
 from infrastructure.database.cursor import PostgresCursor
@@ -13,8 +14,8 @@ from infrastructure.database.transaction_manager import PostgresTransactionManag
 class PostgresConnection(IConnection):
     def __init__(
         self,
-        connection: AsyncConnection,
         pool: AsyncConnectionPool,
+        connection: AsyncConnection | None = None,
     ):
         self._connection = connection
         self._pool = pool
@@ -32,7 +33,7 @@ class PostgresConnection(IConnection):
     async def create_cursor(self) -> ICursor:
         connection = await self.ensure_connected()
 
-        cursor = connection.cursor()
+        cursor = connection.cursor(row_factory=dict_row)
 
         return PostgresCursor(cursor)
 
@@ -47,10 +48,7 @@ class PostgresConnection(IConnection):
 
         This does NOT physically close the connection.
         """
-        if self._released:
-            return
-
-        if self._connection is None:
+        if self._released or self._connection is None:
             return
 
         await self._pool.putconn(self._connection)

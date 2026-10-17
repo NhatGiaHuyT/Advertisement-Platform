@@ -4,19 +4,19 @@ from infrastructure.database.interfaces import IEntity, IMapperFactory
 
 
 class Metadata:
-    def __init__(self, table_name: str, columns: dict[str, type[Any]]):
+    def __init__(self, table_name: str, columns: dict[str, str]):
         self._table_name = table_name
         self._columns = columns
 
 
 class MapperFactory(IMapperFactory):
     def __init__(self):
-        self._registry = {}  # Dict[Type, Metadata]
+        self._registry: dict[type[IEntity], Metadata] = {}
 
-    def register(self, cls: type, table_name: str, columns: dict[str, type[Any]]) -> None:
+    def register(self, cls: type, table_name: str, columns: dict[str, str]) -> None:
         self._registry[cls] = Metadata(table_name, columns)
 
-    def extract(self, entity: IEntity) -> tuple[str, dict[str, Any]]:
+    def extract(self, entity: IEntity) -> dict[str, Any]:
         entity_type = type(entity)
 
         if entity_type not in self._registry:
@@ -31,3 +31,5 @@ class MapperFactory(IMapperFactory):
                 db_data[db_column] = getattr(entity, entity_field)
             else:
                 raise ValueError(f"Entity {entity_type.__name__} does not have the field '{entity_field}'.")
+
+        return db_data

@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from domain.User.model import User
+from domain.User.user_model import User
 
 
 class TestUserModel(unittest.IsolatedAsyncioTestCase):

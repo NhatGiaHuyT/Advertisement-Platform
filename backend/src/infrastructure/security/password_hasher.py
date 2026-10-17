@@ -7,16 +7,14 @@ from domain.User.value_objects.raw_password import RawPassword
 
 
 class IPasswordHasher(Protocol):
-
-    def hash(self, value: RawPassword) -> HashPassword:
-        ...
+    def hash(self, value: RawPassword) -> HashPassword: ...
 
     def verify(
         self,
         value: RawPassword,
         hashed_value: HashPassword,
-    ) -> bool:
-        ...
+    ) -> bool: ...
+
 
 class Argon2PasswordHasher(IPasswordHasher):
     def __init__(self) -> None:

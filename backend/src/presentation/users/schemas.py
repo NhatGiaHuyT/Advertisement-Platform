@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class CreateUserRequest(BaseModel):
+    organization_id: Annotated[UUID, Field(min_length=2, max_length=30)]
     first_name: Annotated[str, Field(min_length=2, max_length=30)]
     last_name: Annotated[str, Field(min_length=2, max_length=30)]
     username: Annotated[str, Field(min_length=2, max_length=30)]
@@ -36,5 +37,5 @@ class CreateUserResponse(BaseModel):
     last_name: Annotated[str, Field(min_length=2, max_length=30)]
     username: Annotated[str, Field(min_length=2, max_length=30)]
     email: Annotated[EmailStr, Field(min_length=2, max_length=30)]
-    is_active: Annotated[bool, Field(default=False)]
+    user_status: Annotated[str, Field(default=False)]
     created_at: Annotated[datetime, Field(default_factory=datetime.now)]
