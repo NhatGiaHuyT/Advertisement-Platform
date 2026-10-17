@@ -30,7 +30,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Mypy
-        run: uv run --no-sync mypy .
+        run: uv run --no-sync mypy
         env:
           ENVIRONMENT: test
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
