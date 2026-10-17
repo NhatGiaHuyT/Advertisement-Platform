@@ -20,8 +20,8 @@ class DatabaseConfig:
 
         return cls(
             host=os.getenv("DB_HOST", "localhost"),
-            database=os.getenv("DB_NAME", "POSTGRES_DB"),
-            user=os.getenv("DB_USER", "DB_USERNAME"),
+            database=os.getenv("DB_NAME", "postgres"),
+            user=os.getenv("DB_USER", "postgres"),
             password=os.getenv("DB_PASSWORD", ""),
             port=os.getenv("DB_PORT", "5432"),
         )
