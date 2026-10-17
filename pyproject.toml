@@ -10,15 +10,3 @@ dependencies = [
     "pre-commit>=4.6.1"
     
 ]
-
-[dependency-groups]
-dev = [
-    "mypy>=2.4.0",
-    "pytest>=9.1.1",
-    "ruff>=0.17.0",
-]
-
-
-[tool.ruff]
-line-length = 88
-indent-width = 4

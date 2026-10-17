@@ -1,6 +1,14 @@
 name: Linting
 
-on: [push, pull_request]
+on:
+    push:
+      paths:
+        - 'backend/**'
+        - '.github/workflows/lint.yml'
+    pull_request:
+      paths:
+        - 'backend/**'
+        - '.github/workflows/lint.yml'
 
 permissions:
   contents: read

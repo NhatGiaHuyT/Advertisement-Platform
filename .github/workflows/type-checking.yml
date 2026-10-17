@@ -1,6 +1,14 @@
 name: Type Checking
 
-on: [push, pull_request]
+on:
+    push:
+      paths:
+        - 'backend/**'
+        - '.github/workflows/type-checking.yml'
+    pull_request:
+      paths:
+        - 'backend/**'
+        - '.github/workflows/type-checking.yml'
 
 permissions:
   contents: read

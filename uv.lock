@@ -175,6 +175,7 @@ dependencies = [
 [package.optional-dependencies]
 dev = [
     { name = "argon2-cffi" },
+    { name = "mypy" },
     { name = "psycopg" },
     { name = "psycopg-pool" },
     { name = "pydantic", extra = ["email"] },
@@ -183,21 +184,28 @@ dev = [
     { name = "pytest-asyncio" },
     { name = "python-dotenv" },
     { name = "regex" },
+    { name = "ruff" },
+    { name = "types-regex" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "argon2-cffi", marker = "extra == 'dev'" },
     { name = "fastapi", specifier = ">=0.141.1" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = ">=2.4.0" },
     { name = "psycopg", marker = "extra == 'dev'" },
     { name = "psycopg-pool", marker = "extra == 'dev'" },
     { name = "pydantic", specifier = ">=2.13.0" },
+    { name = "pydantic", marker = "extra == 'dev'" },
     { name = "pydantic", extras = ["email"], marker = "extra == 'dev'" },
     { name = "pypika", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
-    { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=1.4.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.1.1" },
+    { name = "pytest-asyncio", marker = "extra == 'dev'" },
     { name = "python-dotenv", marker = "extra == 'dev'" },
     { name = "regex", marker = "extra == 'dev'" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.17.0" },
+    { name = "types-regex", marker = "extra == 'dev'" },
 ]
 provides-extras = ["dev"]
 
@@ -604,22 +612,8 @@ dependencies = [
     { name = "pre-commit" },
 ]
 
-[package.dev-dependencies]
-dev = [
-    { name = "mypy" },
-    { name = "pytest" },
-    { name = "ruff" },
-]
-
 [package.metadata]
 requires-dist = [{ name = "pre-commit", specifier = ">=4.6.1" }]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "mypy", specifier = ">=2.4.0" },
-    { name = "pytest", specifier = ">=9.1.1" },
-    { name = "ruff", specifier = ">=0.17.0" },
-]
 
 [[package]]
 name = "pre-commit"
@@ -1020,6 +1014,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b5/b4/205b0d5241d934e8add0c38aa924c4f9fb7330834ff11e5444db964ec3f9/starlette-1.6.0.tar.gz", hash = "sha256:d4e3ac5e546444960c710297a3c9fc3f7ebae1b7e963f3d36173b49da535be9b", size = 2716969, upload-time = "2026-08-08T18:27:57.512Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c8/cb/6a6a47d5b464bd08695d254f3da6e7986cc70c9fa5d778eda57538edfe56/starlette-1.6.0-py3-none-any.whl", hash = "sha256:a86dd39d14bb45f85a3d18525215a9ef0cfd1f192ac793220e72598c90335f0c", size = 75969, upload-time = "2026-08-08T18:27:56.196Z" },
+]
+
+[[package]]
+name = "types-regex"
+version = "2026.9.29.20261005"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d5/e9/4995560975e0b953b6f114ad655ae529a7dcc11d03fbbc9ab95cf0ebdea2/types_regex-2026.9.29.20261005.tar.gz", hash = "sha256:544b8f5b45e4d10e3d3222c92f8280426588cc98fd34eb1e2c5311f7c68a4189", size = 13907, upload-time = "2026-10-05T07:49:30.328Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b3/bf/3e900befa0c479d277db0f115c668bec681249a26e6dee44c0520080fa8b/types_regex-2026.9.29.20261005-py3-none-any.whl", hash = "sha256:24a74fa7fdf0c17300a499f49c0b6dc6865851e138d76a24922d220c048fa9d3", size = 11194, upload-time = "2026-10-05T07:49:29.454Z" },
 ]
 
 [[package]]
