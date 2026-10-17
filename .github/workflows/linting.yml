@@ -1,14 +1,6 @@
 name: Linting
 
-on:
-    push:
-      paths:
-        - 'backend/**'
-        - '.github/workflows/lint.yml'
-    pull_request:
-      paths:
-        - 'backend/**'
-        - '.github/workflows/lint.yml'
+on: [push, pull_request]
 
 permissions:
   contents: read
@@ -28,10 +20,14 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
 
+      - name: Goto Backend/
+        run: |
+          cd backend
+
       - name: Sync workspace
         run: |
-          uv sync
+          uv sync --extra dev
 
       - name: Ruff lint
         run: |
-          uv run --no-sync ruff check .
+          uv run --no-sync ruff check

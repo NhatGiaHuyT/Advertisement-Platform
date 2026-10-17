@@ -1,14 +1,6 @@
 name: Tests
 
-on:
-    push:
-      paths:
-        - 'backend/**'
-        - '.github/workflows/tests.yml'
-    pull_request:
-      paths:
-        - 'backend/**'
-        - '.github/workflows/tests.yml'
+on: [push, pull_request]
 
 permissions:
   contents: read
@@ -27,14 +19,18 @@ jobs:
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Goto Backend/
+        run: |
+          cd backend
       
       - name: Sync workspace
         run: |
-          uv sync
+          uv sync --extra dev
 
       - name: Pytest
         run: |
-          cd backend && uv run --no-sync pytest
+          uv run --no-sync pytest
         env:
           ENVIRONMENT: test
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
